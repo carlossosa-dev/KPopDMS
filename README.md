@@ -11,5 +11,12 @@ KPopDMS is a simple command-line program that helps store, update, and rank K-Po
 - Delete a group – Remove a group when needed.  
 - Rank groups by popularity – Automatically sort groups based on their popularity score.  
 
-The program runs in the command line, keeping it fast and simple to use.
+The program expects group data to be formatted like this:
+
+Group Name,Debut Date,Member1|Member2|...,Agency,Latest Album,Status,Popularity Score
+
+Members are separated by | (not commas).
+Status must be "active", "disbanded", or "hiatus".
+Popularity score should be a number between 0-100.
+If the data does not follow this format, the program will not process it correctly.
 
