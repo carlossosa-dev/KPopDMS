@@ -1,0 +1,20 @@
+BTS,2013-06-13,RM|Jin|Suga|J-Hope|Jimin|V|Jungkook,BigHit Entertainment,Proof,active,98
+BLACKPINK,2016-08-08,Jisoo|Jennie|Rosé|Lisa,YG Entertainment,Born Pink,active,97
+EXO,2012-04-08,Suho|Xiumin|Lay|Baekhyun|Chen|Chanyeol|D.O.|Kai|Sehun,SM Entertainment,Don't Fight The Feeling,active,92
+TWICE,2015-10-20,Nayeon|Jeongyeon|Momo|Sana|Jihyo|Mina|Dahyun|Chaeyoung|Tzuyu,JYP Entertainment,Ready To Be,active,95
+Stray Kids,2018-03-25,Bang Chan|Lee Know|Changbin|Hyunjin|Han|Felix|Seungmin|I.N,JYP Entertainment,5-Star,active,93
+SEVENTEEN,2015-05-26,S.Coups|Jeonghan|Joshua|Jun|Hoshi|Wonwoo|Woozi|DK|Mingyu|The8|Seungkwan|Vernon|Dino,Pledis Entertainment,FML,active,96
+TXT,2019-03-04,Soobin|Yeonjun|Beomgyu|Taehyun|Huening Kai,BigHit Entertainment,The Name Chapter,active,91
+ITZY,2019-02-12,Yeji|Lia|Ryujin|Chaeryeong|Yuna,JYP Entertainment,Cheshire,active,90
+NCT 127,2016-07-07,Taeyong|Taeil|Johnny|Yuta|Doyoung|Jaehyun|Jungwoo|Mark|Haechan,SM Entertainment,Fact Check,active,88
+GOT7,2014-01-16,JB|Mark|Jackson|Jinyoung|Youngjae|BamBam|Yugyeom,JYP Entertainment,Nanana,hiatus,87
+ENHYPEN,2020-11-30,Heeseung|Jay|Jake|Sunghoon|Sunoo|Jungwon|Ni-ki,BELIFT LAB,Dark Blood,active,89
+AESPA,2020-11-17,Karina|Giselle|Winter|Ningning,SM Entertainment,My World,active,88
+IVE,2021-12-01,Yujin|Gaeul|Rei|Wonyoung|Liz|Leeseo,Starship Entertainment,I've Mine,active,90
+LE SSERAFIM,2022-05-02,Chaewon|Sakura|Yunjin|Kazuha|Eunchae,HYBE,Unforgiven,active,89
+TREASURE,2020-08-07,Hyunsuk|Jihoon|Yoshi|Junkyu|Jaehyuk|Asahi|Yedam|Doyoung|Haruto|Jeongwoo|Junghwan,YG Entertainment,Reboot,active,86
+NewJeans,2022-07-22,Minji|Hanni|Danielle|Haerin|Hyein,ADOR,Get Up,active,94
+Super Junior,2005-11-06,Leeteuk|Heechul|Yesung|Shindong|Eunhyuk|Donghae|Siwon|Ryeowook|Kyuhyun,SM Entertainment,The Road,active,85
+SHINee,2008-05-25,Onew|Key|Minho|Taemin,SM Entertainment,Hard,active,84
+Red Velvet,2014-08-01,Irene|Seulgi|Wendy|Joy|Yeri,SM Entertainment,Chill Kill,active,86
+MAMAMOO,2014-06-18,Solar|Moonbyul|Wheein|Hwasa,RBW,Mic On,active,83
