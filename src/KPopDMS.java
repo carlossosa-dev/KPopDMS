@@ -16,45 +16,104 @@ public class KPopDMS {
             System.out.println("7. Exit");
             System.out.print("Choose an option: ");
 
-            int choice;
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input! Enter a number.");
-                continue;
-            }
+            int choice = getValidInteger(scanner);
 
             switch (choice) {
                 case 1:
                     System.out.print("Enter the file path to load data: ");
                     String filePath = scanner.nextLine().trim();
-                    manager.loadFromFile(filePath);
+                    boolean loaded = manager.loadFromFile(filePath);
+                    System.out.println(loaded ? "File loaded successfully!" : "Error: File not found.");
                     break;
+
                 case 2:
-                    manager.addGroup(scanner);
+                    KPopGroup newGroup = createGroup(scanner);
+                    boolean added = manager.addGroup(newGroup);
+                    System.out.println(added ? "Group added successfully!" : "Error: Group already exists.");
                     break;
+
                 case 3:
-                    manager.displayGroups();
+                    List<KPopGroup> groups = manager.getGroups();
+                    if (groups.isEmpty()) {
+                        System.out.println("No groups available.");
+                    } else {
+                        for (KPopGroup group : groups) {
+                            System.out.println(group);
+                            System.out.println("------------------------");
+                        }
+                    }
                     break;
+
                 case 4:
                     System.out.print("Enter group name to update: ");
                     String updateName = scanner.nextLine();
-                    manager.updateGroup(updateName, scanner);
+                    KPopGroup updatedGroup = createGroup(scanner);
+                    boolean updated = manager.updateGroup(updateName, updatedGroup);
+                    System.out.println(updated ? "Updated successfully!" : "Error: Group not found.");
                     break;
+
                 case 5:
-                    manager.rankGroups();
+                    List<KPopGroup> rankedGroups = manager.rankGroups();
+                    if (rankedGroups.isEmpty()) {
+                        System.out.println("No groups available to rank.");
+                    } else {
+                        System.out.println("\nTop K-Pop Groups by Popularity:");
+                        for (int i = 0; i < rankedGroups.size(); i++) {
+                            System.out.println((i + 1) + ". " + rankedGroups.get(i).name + " - Popularity Score: " + rankedGroups.get(i).popularityScore);
+                        }
+                    }
                     break;
+
                 case 6:
                     System.out.print("Enter group name to delete: ");
                     String deleteName = scanner.nextLine();
-                    manager.deleteGroup(deleteName);
+                    boolean deleted = manager.deleteGroup(deleteName);
+                    System.out.println(deleted ? "Group deleted successfully!" : "Error: Group not found.");
                     break;
+
                 case 7:
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
+
                 default:
                     System.out.println("Invalid choice! Try again.");
+            }
+        }
+    }
+
+    // Gets user input and builds a KPopGroup object
+    private static KPopGroup createGroup(Scanner scanner) {
+        System.out.print("Enter group name: ");
+        String name = scanner.nextLine().trim();
+
+        System.out.print("Enter debut date (YYYY-MM-DD): ");
+        String debutDate = scanner.nextLine().trim();
+
+        System.out.print("Enter members (comma-separated): ");
+        List<String> members = Arrays.asList(scanner.nextLine().split(","));
+
+        System.out.print("Enter agency: ");
+        String agency = scanner.nextLine().trim();
+
+        System.out.print("Enter latest album: ");
+        String latestAlbum = scanner.nextLine().trim();
+
+        System.out.print("Enter status (active/disbanded/hiatus): ");
+        String status = scanner.nextLine().trim().toLowerCase();
+
+        int popularityScore = getValidInteger(scanner); // Ensures valid number input
+
+        return new KPopGroup(name, debutDate, members, agency, latestAlbum, status, popularityScore);
+    }
+
+    // Loops until a valid number is entered
+    private static int getValidInteger(Scanner scanner) {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Enter a valid number.");
             }
         }
     }
