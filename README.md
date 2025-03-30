@@ -1,22 +1,25 @@
 # KPopDMS - K-Pop Data Management System
 
-KPopDMS is a simple command-line program that helps store, update, and rank K-Pop groups. Whether you want to keep track of debut dates, members, agencies, or rank groups based on popularity, this program makes it easy. It provides a straightforward way to manage K-Pop group data without needing a database. The program loads and saves data from a text file, allowing you to update your list anytime and share it with others.
+KPopDMS is a desktop application that helps you store, update, delete, and rank K-Pop groups using a SQLite database.  
+You can manage group names, debut dates, members, agencies, and popularity scores through an easy-to-use interface.  
+All data is saved in a `.db` file, and no external file management is needed.
 
 ## Features
 
-- Load data from a file – Import group details from a `.txt` file.  
-- Add a new group – Input a new group with proper validation.  
-- View groups – See all stored groups and their details.  
-- Update group info – Modify an existing group’s details.  
-- Delete a group – Remove a group when needed.  
-- Rank groups by popularity – Automatically sort groups based on their popularity score.  
+- Connect to a SQLite database file
+- Add a new group with proper input validation
+- View all stored groups in a table
+- Update existing group details
+- Delete a group when needed
+- Rank groups by popularity score
 
-The program expects group data to be formatted like this:
+## Database Structure
 
-Group Name,Debut Date,Member1|Member2|...,Agency,Latest Album,Status,Popularity Score
+The program expects a table named `groups` with the following columns:
+name, debut_date, members, agency, latest_album, status, popularity_score
 
-Members are separated by | (not commas).
-Status must be "active", "disbanded", or "hiatus".
-Popularity score should be a number between 0-100.
-If the data does not follow this format, the program will not process it correctly.
+- `members`: separated by commas  
+- `status`: must be "active", "disbanded", or "hiatus"  
+- `popularity_score`: must be a number (e.g. 0–100)  
 
+If the table does not follow this structure, the program may not work correctly.
