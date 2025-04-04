@@ -2,13 +2,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-// Command-line version of the K-Pop Data Management System
+/**
+ * Command-line version of the K-Pop Data Management System.
+ * Allows users to manage K-Pop group data through terminal interaction.
+ */
 public class KPopDMS {
+
+    /**
+     * Entry point for the command-line program.
+     * Connects to the database and displays the main menu loop.
+     *
+     * @param args unused command-line arguments
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         KPopDatabaseManager manager = new KPopDatabaseManager();
 
-        // Prompt user for the SQLite database path
         System.out.print("Enter path to SQLite database file: ");
         String dbPath = scanner.nextLine().trim();
         boolean connected = manager.connect(dbPath);
@@ -18,7 +27,6 @@ public class KPopDMS {
             return;
         }
 
-        // Main menu loop
         while (true) {
             System.out.println("\nK-Pop Data Management System");
             System.out.println("1. Add Group");
@@ -33,14 +41,12 @@ public class KPopDMS {
 
             switch (choice) {
                 case 1:
-                    // Add new group to database
                     KPopGroup newGroup = createGroup(scanner);
                     boolean added = manager.addGroup(newGroup);
                     System.out.println(added ? "Group added successfully!" : "Error: Group already exists.");
                     break;
 
                 case 2:
-                    // Display all groups
                     List<KPopGroup> groups = manager.getGroups();
                     if (groups.isEmpty()) {
                         System.out.println("No groups available.");
@@ -53,7 +59,6 @@ public class KPopDMS {
                     break;
 
                 case 3:
-                    // Update an existing group by name
                     System.out.print("Enter group name to update: ");
                     String updateName = scanner.nextLine();
                     KPopGroup updatedGroup = createGroup(scanner);
@@ -62,7 +67,6 @@ public class KPopDMS {
                     break;
 
                 case 4:
-                    // Show ranked groups by popularity
                     List<KPopGroup> rankedGroups = manager.rankGroups();
                     if (rankedGroups.isEmpty()) {
                         System.out.println("No groups available to rank.");
@@ -76,7 +80,6 @@ public class KPopDMS {
                     break;
 
                 case 5:
-                    // Delete a group by name
                     System.out.print("Enter group name to delete: ");
                     String deleteName = scanner.nextLine();
                     boolean deleted = manager.deleteGroup(deleteName);
@@ -84,7 +87,6 @@ public class KPopDMS {
                     break;
 
                 case 6:
-                    // Exit the application
                     System.out.println("Exiting...");
                     scanner.close();
                     return;
@@ -95,12 +97,16 @@ public class KPopDMS {
         }
     }
 
-    // Prompts the user to enter all details and builds a KPopGroup object
+    /**
+     * Prompts the user for group information and returns a KPopGroup object.
+     *
+     * @param scanner Scanner for user input
+     * @return a new KPopGroup based on input
+     */
     private static KPopGroup createGroup(Scanner scanner) {
         System.out.print("Enter group name: ");
         String name = scanner.nextLine().trim();
 
-        // Validate proper date format
         String debutDate;
         while (true) {
             System.out.print("Enter debut date (YYYY-MM-DD): ");
@@ -118,7 +124,6 @@ public class KPopDMS {
         System.out.print("Enter latest album: ");
         String latestAlbum = scanner.nextLine().trim();
 
-        // Ensure status is one of the accepted values
         String status;
         while (true) {
             System.out.print("Enter status (active/disbanded/hiatus): ");
@@ -133,7 +138,12 @@ public class KPopDMS {
         return new KPopGroup(name, debutDate, members, agency, latestAlbum, status, popularityScore);
     }
 
-    // Ensures user inputs a valid integer (no letters, decimals, etc.)
+    /**
+     * Reads and validates that user input is a valid integer.
+     *
+     * @param scanner Scanner to read input
+     * @return the valid integer entered by the user
+     */
     private static int getValidInteger(Scanner scanner) {
         while (true) {
             try {
@@ -144,7 +154,12 @@ public class KPopDMS {
         }
     }
 
-    // Validates if input matches strict YYYY-MM-DD format
+    /**
+     * Checks if a string is a valid date in strict YYYY-MM-DD format.
+     *
+     * @param dateStr date string to validate
+     * @return true if the format is valid, false otherwise
+     */
     private static boolean isValidDate(String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         sdf.setLenient(false);
