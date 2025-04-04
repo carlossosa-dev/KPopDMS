@@ -5,17 +5,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-// GUI version of the K-Pop Data Management System
+/**
+ * Graphical version of the K-Pop Data Management System.
+ * Allows users to view, add, update, delete, and rank K-Pop groups using a Swing-based interface.
+ */
 public class KPopDMSGUI {
     private JFrame frame;
     private JTable table;
     private DefaultTableModel tableModel;
     private KPopDatabaseManager manager;
 
+    /**
+     * Launches the GUI, connects to the database, and builds the interface.
+     */
     public KPopDMSGUI() {
         manager = new KPopDatabaseManager();
 
-        // Ask user for the path to the SQLite database file
         String dbPath = JOptionPane.showInputDialog(null, "Enter path to SQLite database file:");
         if (dbPath == null || dbPath.trim().isEmpty() || !manager.connect(dbPath)) {
             JOptionPane.showMessageDialog(null, "Failed to connect to the database.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -28,13 +33,11 @@ public class KPopDMSGUI {
 
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Define table columns and set up table display
         String[] columnNames = {"Name", "Debut Date", "Members", "Agency", "Latest Album", "Status", "Popularity"};
         tableModel = new DefaultTableModel(columnNames, 0);
         table = new JTable(tableModel);
         panel.add(new JScrollPane(table), BorderLayout.CENTER);
 
-        // Set up buttons for core operations
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add Group");
         JButton updateButton = new JButton("Update Group");
@@ -47,18 +50,19 @@ public class KPopDMSGUI {
         buttonPanel.add(rankButton);
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Connect button actions to functions
         addButton.addActionListener(e -> addGroup());
         updateButton.addActionListener(e -> updateGroup());
         deleteButton.addActionListener(e -> deleteGroup());
         rankButton.addActionListener(e -> rankGroups());
 
         frame.add(panel);
-        updateTable(); // Load initial data
+        updateTable();
         frame.setVisible(true);
     }
 
-    // Fills the table with current group data
+    /**
+     * Updates the table to display the current list of K-Pop groups.
+     */
     private void updateTable() {
         tableModel.setRowCount(0);
         for (KPopGroup group : manager.getGroups()) {
@@ -74,7 +78,9 @@ public class KPopDMSGUI {
         }
     }
 
-    // Opens a form and adds a new group based on user input
+    /**
+     * Opens a form to collect new group data and adds the group to the database.
+     */
     private void addGroup() {
         JTextField nameField = new JTextField();
         JTextField dateField = new JTextField();
@@ -96,7 +102,6 @@ public class KPopDMSGUI {
         int result = JOptionPane.showConfirmDialog(frame, inputPanel, "Add Group", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             try {
-                // Validate inputs before creating the group
                 String name = nameField.getText().trim();
                 String debutDate = dateField.getText().trim();
                 if (!isValidDate(debutDate)) throw new Exception("Invalid date format.");
@@ -121,7 +126,9 @@ public class KPopDMSGUI {
         }
     }
 
-    // Opens a form to update an existing group
+    /**
+     * Opens a form to update an existing group's data in the database.
+     */
     private void updateGroup() {
         String name = JOptionPane.showInputDialog(frame, "Enter name of group to update:");
         if (name == null || name.trim().isEmpty()) return;
@@ -144,7 +151,6 @@ public class KPopDMSGUI {
         int result = JOptionPane.showConfirmDialog(frame, inputPanel, "Update Group", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
             try {
-                // Validate inputs before updating the group
                 String debutDate = dateField.getText().trim();
                 if (!isValidDate(debutDate)) throw new Exception("Invalid date format.");
                 String status = statusField.getText().trim().toLowerCase();
@@ -168,7 +174,9 @@ public class KPopDMSGUI {
         }
     }
 
-    // Deletes a group by name
+    /**
+     * Deletes a group from the database after asking for the group's name.
+     */
     private void deleteGroup() {
         String name = JOptionPane.showInputDialog(frame, "Enter name of group to delete:");
         if (name != null && !name.trim().isEmpty()) {
@@ -180,7 +188,9 @@ public class KPopDMSGUI {
         }
     }
 
-    // Reorders the table by popularity descending
+    /**
+     * Displays the list of groups sorted by popularity.
+     */
     private void rankGroups() {
         tableModel.setRowCount(0);
         for (KPopGroup group : manager.rankGroups()) {
@@ -196,7 +206,12 @@ public class KPopDMSGUI {
         }
     }
 
-    // Validates strict YYYY-MM-DD format
+    /**
+     * Validates that a string is a valid date in YYYY-MM-DD format.
+     *
+     * @param dateStr the date string to check
+     * @return true if valid, false otherwise
+     */
     private boolean isValidDate(String dateStr) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -208,17 +223,30 @@ public class KPopDMSGUI {
         }
     }
 
-    // Validates status is one of the accepted options
+    /**
+     * Checks if the given status is valid.
+     *
+     * @param status the status to validate
+     * @return true if the status is active, disbanded, or hiatus
+     */
     private boolean isValidStatus(String status) {
         return status.equals("active") || status.equals("disbanded") || status.equals("hiatus");
     }
 
-    // Shows an error dialog with the provided message
+    /**
+     * Shows an error message popup with the provided message.
+     *
+     * @param msg the error message to show
+     */
     private void showError(String msg) {
         JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    // Launches the GUI application
+    /**
+     * Starts the GUI application.
+     *
+     * @param args unused command-line arguments
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(KPopDMSGUI::new);
     }
