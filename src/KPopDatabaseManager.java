@@ -3,11 +3,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-// Handles all database operations for K-Pop group data
+/**
+ * Handles all database operations for storing and retrieving K-Pop group data.
+ * Supports connecting, inserting, updating, deleting, and ranking groups.
+ */
 public class KPopDatabaseManager {
-    private Connection connection; // Active connection to the SQLite database
+    private Connection connection;
 
-    // Attempts to connect to the database using the given file path
+    /**
+     * Connects to the SQLite database using the provided file path.
+     *
+     * @param dbPath full path to the SQLite .db file
+     * @return true if the connection was successful, false if it failed
+     */
     public boolean connect(String dbPath) {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
@@ -18,7 +26,11 @@ public class KPopDatabaseManager {
         }
     }
 
-    // Retrieves all groups from the database
+    /**
+     * Retrieves all K-Pop groups from the database.
+     *
+     * @return a list of all stored KPopGroup records
+     */
     public List<KPopGroup> getGroups() {
         List<KPopGroup> groups = new ArrayList<>();
         String sql = "SELECT * FROM groups";
@@ -45,7 +57,12 @@ public class KPopDatabaseManager {
         return groups;
     }
 
-    // Inserts a new group into the database
+    /**
+     * Inserts a new group into the database.
+     *
+     * @param group the group to be added
+     * @return true if the group was added successfully, false if an error occurred
+     */
     public boolean addGroup(KPopGroup group) {
         String sql = "INSERT INTO groups (name, debut_date, members, agency, latest_album, status, popularity_score) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -65,7 +82,13 @@ public class KPopDatabaseManager {
         }
     }
 
-    // Updates a group's details by name
+    /**
+     * Updates an existing group's data based on name.
+     *
+     * @param name name of the group to update
+     * @param updatedGroup the new group information
+     * @return true if the update was successful, false otherwise
+     */
     public boolean updateGroup(String name, KPopGroup updatedGroup) {
         String sql = "UPDATE groups SET debut_date = ?, members = ?, agency = ?, latest_album = ?, status = ?, popularity_score = ? WHERE name = ?";
 
@@ -84,7 +107,12 @@ public class KPopDatabaseManager {
         }
     }
 
-    // Deletes a group from the database by name
+    /**
+     * Deletes a group from the database using the group's name.
+     *
+     * @param name name of the group to delete
+     * @return true if the group was successfully deleted, false otherwise
+     */
     public boolean deleteGroup(String name) {
         String sql = "DELETE FROM groups WHERE name = ?";
 
@@ -97,7 +125,11 @@ public class KPopDatabaseManager {
         }
     }
 
-    // Returns groups sorted by popularity (highest first)
+    /**
+     * Returns a list of groups ordered by popularity from highest to lowest.
+     *
+     * @return ranked list of KPopGroup objects
+     */
     public List<KPopGroup> rankGroups() {
         List<KPopGroup> ranked = new ArrayList<>();
         String sql = "SELECT * FROM groups ORDER BY popularity_score DESC";
